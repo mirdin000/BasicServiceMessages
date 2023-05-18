@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>ServiceMessages</title>
+
+</head>
+
+<body>
+<div>
+    <H3 th:text="'Пользователь: ' + ${user}"></H3>
+</div>
+
+<div>
+    <form method="get" action="/messages-filter">
+        <input type="hidden" name="user" th:value="${user}" id="user1"/>
+        <input name="username" id="username" type="text" placeholder="Фильтр по имени:" style="border-radius:10px;"/>
+        <input id="sub1" type="submit" value="Проверить" style="border-radius:10px;"/>
+    </form>
+</div>
+
+<table title="Сообщения" cellpadding="20">
+    <tr>
+        <td>ID</td>
+        <td>Автор</td>
+        <td>Текст сообщения</td>
+    </tr>
+<tr th:each="note : ${notes}">
+    <td th:text="${note.getId}"></td>
+    <td th:text="${note.getUsername}"></td>
+    <td th:text="${note.getTextMessage}"></td>
+</tr>
+</table>
+<div>
+    <H3 style=" position: absolute; right: 60px; top: 2px;">Новое сообщение</H3>
+    <form method="post" action="/messages/new" th:object="${message}" style=" position: absolute; right: 10px; top: 50px;">
+        <input type="hidden" name="user" th:value="${user}" id="user"/>
+
+        <textarea name="textMessage" rows="10" th:field="*{textMessage}" cols="30" placeholder="Введите текст" id="textMessage" style="border-radius:10px;"></textarea>
+
+        <br>
+
+        <input type="submit" value="Отправить" style=" width: 245px; height: 24px; border-radius:10px;"/>
+    </form>
+</div>
+</body>
+</html>
