@@ -43,18 +43,30 @@ class MessageTest {
 
     @Test
     void getUsername() {
+        String expected = "Artur";
+        M1.setUsername(expected);
+        assertEquals(expected, M1.getUsername());
     }
 
     @Test
     void getTextMessage() {
+        String expected = "Room contain";
+        M1.setTextMessage(expected);
+        assertEquals(expected, M1.getTextMessage());
     }
 
     @Test
     void setUsername() {
+        String expected = "Artur";
+        M1.setUsername(expected);
+        assertEquals(expected, M1.getUsername());
     }
 
     @Test
     void setTextMessage() {
+        String expected = "Room contain";
+        M1.setTextMessage(expected);
+        assertEquals(expected, M1.getTextMessage());
     }
 
     @AfterAll
