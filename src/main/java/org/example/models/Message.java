@@ -2,7 +2,8 @@ package org.example.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Size;
 
 @Entity

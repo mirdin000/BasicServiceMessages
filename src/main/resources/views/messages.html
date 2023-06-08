@@ -43,6 +43,8 @@
         <br>
 
         <input type="submit" value="Отправить" style=" width: 245px; height: 24px; border-radius:10px;"/>
+
+        <span th:if="${#fields.hasErrors('textMessage')}" th:errors="*{textMessage}" style="background-color: red;">Name Error</span>
     </form>
 </div>
 </body>

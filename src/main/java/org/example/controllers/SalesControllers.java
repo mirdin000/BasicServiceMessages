@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @Controller
@@ -28,10 +29,9 @@ public class SalesControllers {
     public String messagesPage(@ModelAttribute("user") String user,
                             @ModelAttribute("message") Message message,
                             Model model){
-        if (user == null){//проверка на null для переменной имени продоваца
+        if (user == null || user.length() == 0){//проверка на null для переменной имени продаваца
             return "redirect:/";
         }
-        System.out.println("user1: " + user);
         model.addAttribute("notes", messageDao.allNotes());
         return "messages";
     }
@@ -41,31 +41,30 @@ public class SalesControllers {
                             @ModelAttribute("username") String username,
                             @ModelAttribute("message") Message message,
                             Model model){
-        if (user == null){//проверка на null для переменной имени продоваца
+        if (user == null || user.length() == 0){//проверка на null для переменной имени продоваца
             return "redirect:/";
         }
-        System.out.println("user2: " + user);
         model.addAttribute("notes", messageDao.notesByUsername(username));
         return "messages";
     }
 
 @PostMapping("/messages/new")
-public String messagesNewPage(@Valid @ModelAttribute("message") Message message,
+public String messagesNewPage(@ModelAttribute("message") @Valid Message message,
+                              BindingResult bindingResult,
                               @ModelAttribute("user") String user,
-                           BindingResult bindingResult, Model model){
-    if (user== null){//проверка на null для переменной имени продоваца
+                              Model model){
+    if (user == null || user.length() == 0){//проверка на null для переменной имени продавца
         return "redirect:/";
     }
     if (bindingResult.hasErrors()) {
         System.out.println("Error validation!!!");
-        return "redirect:/messages";
+        return "redirect:/messages?user=" + user;
     }
-    System.out.println("user3: " + user);
 
     message.setUsername(user);
     messageDao.noteSave(message);
-    model.addAttribute("notes", messageDao.allNotes());
-    return "messages";
+    //model.addAttribute("notes", messageDao.allNotes());
+    return "redirect:/messages?user=" + user;
 }
 
 }
