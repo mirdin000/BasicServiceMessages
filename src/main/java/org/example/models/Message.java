@@ -19,7 +19,7 @@ public class Message {
     @SequenceGenerator(name = "messages_sequence", sequenceName = "messages_sequence", allocationSize = 1)
     private long id;
     @Column(name = "username")
-    @Size(min = 2, max = 30,message = "Error username!!!")
+    @Size(min = 2, max = 30, message = "Error username!!!")
     @NotEmpty(message = "Empty field!!!")
     private String username;
     @Column(name = "textMessage")

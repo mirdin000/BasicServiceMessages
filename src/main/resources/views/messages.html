@@ -15,8 +15,8 @@
 
 <div>
     <form method="get" action="/messages-filter">
-        <input type="hidden" name="user" th:value="${user}" id="user1"/>
-        <input name="username" id="username" type="text" placeholder="Фильтр по имени:" style="border-radius:10px;"/>
+        <input type="hidden" name="user" th:value="${user}" id="user"/>
+        <input name="username2" id="username2" type="text" placeholder="Фильтр по имени:" style="border-radius:10px;"/>
         <input id="sub1" type="submit" value="Проверить" style="border-radius:10px;"/>
     </form>
 </div>
@@ -27,7 +27,7 @@
         <td>Автор</td>
         <td>Текст сообщения</td>
     </tr>
-<tr th:each="note : ${notes}">
+<tr th:each="note : ${notes}" style="border: 1px; border-color: red;">
     <td th:text="${note.getId}"></td>
     <td th:text="${note.getUsername}"></td>
     <td th:text="${note.getTextMessage}"></td>
@@ -36,7 +36,8 @@
 <div>
     <H3 style=" position: absolute; right: 60px; top: 2px;">Новое сообщение</H3>
     <form method="post" action="/messages/new" th:object="${message}" style=" position: absolute; right: 10px; top: 50px;">
-        <input type="hidden" name="user" th:value="${user}" id="user"/>
+        <input type="hidden" name="username" id="username" th:field="*{username}" th:value="Mark">
+        <input type="hidden" name="user1" th:value="${user}" id="user1"/>
 
         <textarea name="textMessage" rows="10" th:field="*{textMessage}" cols="30" placeholder="Введите текст" id="textMessage" style="border-radius:10px;"></textarea>
 
@@ -44,7 +45,7 @@
 
         <input type="submit" value="Отправить" style=" width: 245px; height: 24px; border-radius:10px;"/>
 
-        <span th:if="${#fields.hasErrors('textMessage')}" th:errors="*{textMessage}" style="background-color: red;">Name Error</span>
+        <div th:if="${#fields.hasErrors('textMessage')}" th:errors="*{textMessage}" style="background-color: red;"></div>
     </form>
 </div>
 </body>
